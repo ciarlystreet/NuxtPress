@@ -18,7 +18,7 @@
 export default {
   props: {
     links: {
-      type: Object,
+      type: Array,
       required: true
     }
   }

@@ -1,0 +1,11 @@
+body,
+html {
+  font-family: 'Yeon Sung', cursive;
+  font-size: $theme-font-size-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include xs-only {
+    font-size: 12px;
+  }
+}

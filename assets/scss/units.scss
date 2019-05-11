@@ -1,0 +1,27 @@
+// Strip Units
+@function deUnit($value) {
+  @if ($value == 0) {
+    @return 0;
+  }
+  @return ($value / ($value * 0 + 1));
+}
+
+$base: deUnit(
+  $theme-font-size-base
+); //Set $theme-font-size-base in _override_bootstrap_variables
+
+// PX → REM
+@function px2rem($px, $context: $base) {
+  @return (deUnit($px) / $context) * 1rem;
+}
+
+// PX → REM (deprecated)
+@function rem($px, $context: $base) {
+  @warn "Function name 'rem' is deprecated and will be edited with px2rem; please replace with 'px2rem'";
+  @return px2rem(deUnit($px), $context);
+}
+
+// REM → PX
+@function rem2px($rem, $context: $base) {
+  @return (deUnit($rem) * $context) * 1px;
+}

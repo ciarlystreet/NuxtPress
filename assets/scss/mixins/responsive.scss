@@ -1,0 +1,71 @@
+@mixin xs-only {
+  @include media-breakpoint-only(xs) {
+    @content;
+  }
+}
+
+@mixin sm-only {
+  @include media-breakpoint-only(sm) {
+    @content;
+  }
+}
+
+@mixin md-only {
+  @include media-breakpoint-only(md) {
+    @content;
+  }
+}
+
+@mixin lg-only {
+  @include media-breakpoint-only(lg) {
+    @content;
+  }
+}
+
+@mixin xl-only {
+  @include media-breakpoint-only(xl) {
+    @content;
+  }
+}
+
+@mixin hd-only {
+  @media #{$hd-only} {
+    @content;
+  }
+}
+
+@mixin sm-up {
+  @include media-breakpoint-up(sm) {
+    @content;
+  }
+}
+
+@mixin sm-down {
+  @include media-breakpoint-down(sm) {
+    @content;
+  }
+}
+
+@mixin md-up {
+  @include media-breakpoint-up(md) {
+    @content;
+  }
+}
+
+@mixin md-down {
+  @include media-breakpoint-down(md) {
+    @content;
+  }
+}
+
+@mixin lg-up {
+  @include media-breakpoint-up(lg) {
+    @content;
+  }
+}
+
+@mixin lg-down {
+  @include media-breakpoint-down(lg) {
+    @content;
+  }
+}

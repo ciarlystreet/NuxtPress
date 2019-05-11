@@ -1,0 +1,27 @@
+// Bootstrap overwrite
+@import 'overwrite/colors.scss';
+
+// Bootstrap required
+@import './node_modules/bootstrap/scss/functions';
+@import './node_modules/bootstrap/scss/variables';
+@import './node_modules/bootstrap/scss/mixins';
+
+// Custom
+@import 'mixins/responsive.scss';
+@import 'variables.scss';
+@import 'units.scss';
+@import 'fonts.scss';
+@import 'scaffolding.scss';
+
+.vh-primary {
+  height: 86vh;
+}
+.vh-secondary {
+  height: 7vh;
+}
+
+main {
+  background: theme-color('primary');
+  overflow: auto;
+  padding: px2rem(15) 0;
+}

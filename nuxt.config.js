@@ -47,11 +47,24 @@ export default {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt'
   ],
+
   /*
    ** Axios module configuration
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://quiz.local/wp-json/nuxt/v1/',
+    proxy: true
+  },
+
+  /*
+   ** Proxy configuration
+   */
+  proxy: {
+    '/wp-api/': {
+      target: 'http://quiz.local/wp-json/nuxt/v1/',
+      pathRewrite: { '^/wp-api/': '' }
+    }
   },
 
   /*

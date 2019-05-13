@@ -26,8 +26,7 @@ export default {
   },
   async asyncData({ $axios, error, params }) {
     try {
-      const { data } = await $axios.get('/wp-api/arguments', { useCache: true })
-      // eslint-disable-next-line no-console
+      const { data } = await $axios.get('/wp-json/nuxt/v1/arguments')
       const links = []
       data.forEach(element => {
         const link = {
@@ -37,6 +36,7 @@ export default {
         }
         links.push(link)
       })
+
       return {
         links
       }

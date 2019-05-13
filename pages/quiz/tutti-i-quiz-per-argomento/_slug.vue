@@ -36,7 +36,7 @@ export default {
   },
   async asyncData({ $axios, error, params }) {
     try {
-      const { data } = await $axios.get('/wp-api/quiz', {
+      const { data } = await $axios.get('/wp-json/nuxt/v1/quiz', {
         params: {
           argument: params.slug,
           orderby: 'rand',

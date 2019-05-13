@@ -53,18 +53,7 @@ export default {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://quiz.local/wp-json/nuxt/v1/',
-    proxy: true
-  },
-
-  /*
-   ** Proxy configuration
-   */
-  proxy: {
-    '/wp-api/': {
-      target: 'http://quiz.local/wp-json/nuxt/v1/',
-      pathRewrite: { '^/wp-api/': '' }
-    }
+    baseURL: 'http://quiz.local/'
   },
 
   /*

@@ -38,8 +38,10 @@ export default {
   }),
   methods: {
     logout() {
+      Cookie.remove('user_info')
       Cookie.remove('auth')
       this.$store.commit('login/setAuth', null)
+      this.$store.commit('currentUser/setUser', null)
       this.$router.push('/')
     }
   }

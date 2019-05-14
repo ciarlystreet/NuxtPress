@@ -15,7 +15,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-1" label="Passowrd:" label-for="input-1">
+      <b-form-group id="input-group-1" label="Password:" label-for="input-1">
         <b-form-input
           id="input-2"
           v-model="form.password"
@@ -23,13 +23,6 @@
           required
           placeholder="Insierisci la tua password"
         ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-4">
-        <b-form-checkbox-group id="checkboxes-4" v-model="form.checked">
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
@@ -42,17 +35,18 @@
 </template>
 
 <script>
+const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   data() {
     return {
       form: {
         email: '',
-        password: '',
-        checked: []
+        password: ''
       },
       show: true
     }
   },
+  middleware: 'notAuthenticated',
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
@@ -63,16 +57,22 @@ export default {
           password: this.form.password
         })
         .then(function(response) {
-          // eslint-disable-next-line no-console
-          console.log(response)
           if (response.data.token) {
-            localStorage.setItem('loginToken', response.data.token)
-            $this.$router.push('/')
+            const auth = response.data.token
+            $this.$store.commit('login/setAuth', auth)
+            Cookie.set('auth', auth)
+
+            const user = response.data.user
+            $this.$store.commit('currentUser/setUser', user)
+            Cookie.set('user_info', user)
+            $this.$router.push('/quiz')
           }
         })
         .catch(function(error) {
-          // eslint-disable-next-line no-console
-          console.log(error.request)
+          if (error.request !== undefined && error.request.status === 403) {
+            // eslint-disable-next-line no-console
+            console.error(JSON.parse(error.request.response))
+          }
         })
     },
     onReset(evt) {

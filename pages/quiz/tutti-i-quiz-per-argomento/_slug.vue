@@ -17,6 +17,7 @@
 <script>
 import answersList from '~/components/answersList.vue'
 export default {
+  middleware: 'authenticated',
   components: {
     answersList
   },

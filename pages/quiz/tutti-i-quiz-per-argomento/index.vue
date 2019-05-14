@@ -15,6 +15,7 @@
 <script>
 import List from '~/components/List.vue'
 export default {
+  middleware: 'authenticated',
   components: {
     List
   },

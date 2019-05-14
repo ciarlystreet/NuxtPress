@@ -4,13 +4,7 @@
       {{ title }}
     </h1>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-          <answersList :question-details="questionDetails" />
-        </div>
-      </div>
-    </div>
+    <answersList :question-details="questionDetails" />
   </section>
 </template>
 

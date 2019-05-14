@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto">
+  <div id="form-login">
     <b-form v-if="show" @submit="onSubmit" @reset="onReset">
       <b-form-group
         id="input-group-1"

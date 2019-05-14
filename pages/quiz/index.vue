@@ -2,13 +2,7 @@
   <section class="container-fluid">
     <h1 v-if="title" class="text-center mb-3 font-secondary">{{ title }}</h1>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-          <List :links="links" />
-        </div>
-      </div>
-    </div>
+    <List :links="links" />
   </section>
 </template>
 

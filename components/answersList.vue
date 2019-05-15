@@ -106,10 +106,14 @@ export default {
         answer: answer.text
       }
       const apiReport = {
-        question_id: question.id,
+        argument_id: question.argument.term_id,
+        question_id: question.ID,
         answer_id: answer.id,
-        is_valid: answer.is_valid
+        is_valid: answer.is_valid,
+        date: this.getDateTime()
       }
+      // eslint-disable-next-line no-console
+      console.log(apiReport)
       this.api_report.push(apiReport)
 
       if (answer.is_valid) {
@@ -173,6 +177,18 @@ export default {
         ' domande su ' +
         this.total +
         '.'
+    },
+    getDateTime() {
+      const today = new Date()
+      const date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate()
+      const time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      return date + ' ' + time
     }
   }
 }

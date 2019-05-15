@@ -10,6 +10,13 @@
 
 <script>
 export default {
-  props: ['error']
+  props: {
+    error: {
+      type: Object,
+      default: function() {
+        return { message: 'Error' }
+      }
+    }
+  }
 }
 </script>

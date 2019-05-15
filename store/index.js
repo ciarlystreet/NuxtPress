@@ -15,8 +15,6 @@ export const actions = {
     let user = null
     if (req.headers.cookie) {
       const parsed = cookieparser.parse(req.headers.cookie)
-      // eslint-disable-next-line no-console
-      console.log(parsed)
       try {
         auth = parsed.auth
         user = JSON.parse(parsed.user_info)

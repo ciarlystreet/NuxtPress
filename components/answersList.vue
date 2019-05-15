@@ -37,7 +37,7 @@
       <button
         v-show="showContinueBtn"
         class="btn btn-primary ml-auto mr-auto mt-3 w-100"
-        @click="nextQuestion(question, answer)"
+        @click="nextQuestion(question)"
       >
         Continua
       </button>
@@ -49,25 +49,42 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
-    questionDetails: {
+    quizDetails: {
       type: Object,
-      required: true
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
-    // eslint-disable-next-line no-console
-    console.log(this.questionDetails)
     return {
-      questions: this.questionDetails.items,
-      argument: this.questionDetails.question,
-      total: this.questionDetails.items.length,
-      activeID: this.questionDetails.items[0].ID,
       count: 1,
       report: { valid: [], invalid: [] },
+      api_report: {},
       showContinueBtn: false
     }
+  },
+  computed: {
+    questions() {
+      return this.quizDetails.questions
+    },
+    argument() {
+      return this.quizDetails.argument
+    },
+    total() {
+      return this.quizDetails.questions.length
+    },
+    activeID() {
+      return this.quizDetails.questions[0].ID
+    },
+    ...mapState({
+      // arrow functions can make the code very succinct!
+      user_id: state =>
+        state.currentUser.user_info ? state.currentUser.user_info.ID : null
+    })
   },
   methods: {
     disableAnswersBtn() {
@@ -85,13 +102,17 @@ export default {
       const currentAnswer = document.getElementById(
         'question-' + question.ID + '-answer-' + answer.id
       )
-      // eslint-disable-next-line no-console
-      console.log(currentAnswer)
       if (!currentAnswer) return false
       const report = {
         question: question.question,
         answer: answer.text
       }
+      const apiReport = {
+        question_id: question.id,
+        answer_id: answer.id,
+        is_valid: answer.is_valid
+      }
+      this.api_report.push(apiReport)
 
       if (answer.is_valid) {
         currentAnswer.classList.add('bg-success', 'text-light')
@@ -134,18 +155,15 @@ export default {
     saveUserStats() {
       this.$nuxt.$loading.start()
       this.$axios
-        .post('/wp-api/saveuserstats', {
+        .post('/wp-json/nuxt/v1/saveuserstats', {
           params: {
-            argument: this.$route.params.slug,
-            report: this.report,
-            userID: 1
-          },
-          useCache: false
+            user_id: this.user_id,
+            argument_id: this.argument.term_id,
+            answers: this.api_report
+          }
         })
         .then(response => {
           this.$nuxt.$loading.finish()
-          // eslint-disable-next-line no-console
-          console.log(response)
         })
     },
     showReport() {

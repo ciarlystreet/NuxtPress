@@ -4,7 +4,7 @@
       {{ title }}
     </h1>
 
-    <answersList :question-details="questionDetails" />
+    <answersList :quiz-details="quizDetails" />
   </section>
 </template>
 
@@ -30,24 +30,27 @@ export default {
     }
   },
   async asyncData({ $axios, error, params }) {
+    let title = null
+    let quizDetails = null
     try {
       const { data } = await $axios.get('/wp-json/nuxt/v1/quiz', {
         params: {
           argument: params.slug,
           orderby: 'rand',
           limit: 5
-        },
-        useCache: true
+        }
       })
-      return {
-        title: data.question.title,
-        questionDetails: data
-      }
+      title = data.argument.name
+      quizDetails = data
     } catch (e) {
       error({
         statusCode: 503,
         message: 'Unable to fetch event #' + params.id
       })
+    }
+    return {
+      title,
+      quizDetails
     }
   }
 }

@@ -4,11 +4,11 @@
       <b-list-group-item
         v-for="(link, index) in links"
         :key="index"
-        :to="link.href"
-        :title="link.title"
         class="text-center"
       >
-        {{ link.label }}
+        <nuxt-link :to="link.href" :title="link.title">
+          {{ link.label }}
+        </nuxt-link>
       </b-list-group-item>
     </b-list-group>
   </div>

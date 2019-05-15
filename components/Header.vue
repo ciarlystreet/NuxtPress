@@ -1,7 +1,7 @@
 <template>
   <header id="site-header" class="font-secondary">
     <nav class="navbar navbar-light bg-light vh-secondary">
-      <nuxt-link to="/" class="navbar-brand" title="Elenco Materie">
+      <nuxt-link to="/quiz" class="navbar-brand" title="Elenco Materie">
         <img src="~assets/images/logo.png" alt="logo" />
       </nuxt-link>
 

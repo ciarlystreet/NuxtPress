@@ -63,8 +63,9 @@ export default {
     return {
       count: 1,
       report: { valid: [], invalid: [] },
-      api_report: {},
-      showContinueBtn: false
+      api_report: [],
+      showContinueBtn: false,
+      activeID: this.quizDetails.questions[0].ID
     }
   },
   computed: {
@@ -76,9 +77,6 @@ export default {
     },
     total() {
       return this.quizDetails.questions.length
-    },
-    activeID() {
-      return this.quizDetails.questions[0].ID
     },
     ...mapState({
       // arrow functions can make the code very succinct!
@@ -170,10 +168,6 @@ export default {
       const container = document.getElementById('quiz-container')
 
       container.innerHTML =
-        '<h1 class="text-center mb-3 font-secondary">' +
-        this.argument.name +
-        '</h1>'
-      container.innerHTML +=
         'Hai risposto correttamente a ' +
         this.report.valid.length +
         ' domande su ' +

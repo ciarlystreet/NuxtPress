@@ -37,7 +37,7 @@ export default {
         params: {
           argument: params.slug,
           orderby: 'rand',
-          limit: 5
+          limit: -1
         }
       })
       title = data.argument.name

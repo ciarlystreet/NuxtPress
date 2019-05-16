@@ -27,7 +27,8 @@ export default {
         const link = {
           href: element.slug,
           title: element.name,
-          label: element.name
+          label: element.name,
+          count: element.count
         }
         links.push(link)
       })

@@ -9,6 +9,7 @@
         class="text-center"
       >
         {{ link.label }}
+        <sup v-if="link.count">{{ link.count }}</sup>
       </b-list-group-item>
     </b-list-group>
   </div>

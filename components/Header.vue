@@ -2,7 +2,7 @@
   <header id="site-header" class="font-secondary">
     <nav class="navbar navbar-light bg-light vh-secondary">
       <nuxt-link to="/quiz" class="navbar-brand" title="Elenco Materie">
-        <img src="~assets/images/logo.png" alt="logo" />
+        <img src="/images/logo.png" alt="logo" />
       </nuxt-link>
 
       <nuxt-link
@@ -19,7 +19,7 @@
         title="Scollegati"
         @click="logout"
       >
-        <img src="~assets/images/log-out-button.png" alt="logo" />
+        <img src="/images/log-out-button.png" alt="logo" />
       </a>
     </nav>
   </header>

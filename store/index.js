@@ -11,6 +11,7 @@ export const mutations = {
 const cookieparser = process.server ? require('cookieparser') : undefined
 export const actions = {
   nuxtServerInit({ commit }, { req }) {
+    if (req === undefined) return false
     let auth = null
     let user = null
     if (req.headers.cookie) {

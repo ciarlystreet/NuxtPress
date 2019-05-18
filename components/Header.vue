@@ -9,7 +9,13 @@
 
         <template v-if="has_name">
           <nuxt-link to="/profilo" class="user-display-name mr-3">
-            Ciao {{ display_name }}
+            <span class="align-middle"> Ciao {{ display_name }} </span>
+            <emoji
+              emoji="heart_eyes"
+              set="emojione"
+              :size="20"
+              class="align-middle"
+            />
           </nuxt-link>
         </template>
 
@@ -28,8 +34,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import { Emoji } from 'emoji-mart-vue'
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
+  components: {
+    Emoji
+  },
   computed: {
     ...mapState({
       // arrow functions can make the code very succinct!

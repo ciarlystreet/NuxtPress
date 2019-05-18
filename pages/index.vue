@@ -16,8 +16,10 @@
             previsto, ti daremo gli strumenti per non mollare, sarà un gioco da
             ragazzi vedrai!
           </p>
-          <nuxt-link to="auth/login">Accedi</nuxt-link> |
-          <nuxt-link to="/auth/registrazione">Registrati</nuxt-link>
+          <nuxt-link to="auth/login" class="btn btn-info">Accedi</nuxt-link> |
+          <nuxt-link to="/auth/registrazione" class="btn btn-secondary">
+            Registrati
+          </nuxt-link>
         </div>
       </b-card-text>
     </b-card>

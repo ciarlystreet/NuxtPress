@@ -7,7 +7,7 @@
           <img src="/images/logo.png" alt="logo" />
         </nuxt-link>
 
-        <template v-if="has_name">
+        <template v-if="display_name && is_user_logged_in">
           <nuxt-link to="/profilo" class="user-display-name mr-3">
             <span class="align-middle"> Ciao {{ display_name }} </span>
             <emoji
@@ -20,7 +20,7 @@
         </template>
 
         <a
-          v-if="$store.state.login.auth"
+          v-if="is_user_logged_in"
           class="logout"
           title="Scollegati"
           @click="logout"
@@ -46,15 +46,15 @@ export default {
       display_name({ currentUser }) {
         const name =
           currentUser && currentUser.user_info
-            ? currentUser.user_info.display_name
+            ? ' ' + currentUser.user_info.display_name
             : ''
 
-        return ' ' + name
+        return name
+      },
+      is_user_logged_in({ login }) {
+        return login.auth
       }
-    }),
-    has_name() {
-      return !!this.display_name
-    }
+    })
   },
   methods: {
     logout() {

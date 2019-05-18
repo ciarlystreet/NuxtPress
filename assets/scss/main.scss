@@ -2,10 +2,11 @@
 @import 'overwrite/colors.scss';
 
 // Bootstrap required
-@import './node_modules/bootstrap/scss/functions';
-@import './node_modules/bootstrap/scss/variables';
-@import './node_modules/bootstrap/scss/mixins';
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
 
+// And define any of your custom overides or additional CSS/SCSS here,
+// or via an @import
 // Custom
 @import 'mixins/responsive.scss';
 @import 'variables.scss';

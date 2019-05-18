@@ -112,8 +112,6 @@ export default {
         is_valid: answer.is_valid,
         date: this.getDateTime()
       }
-      // eslint-disable-next-line no-console
-      console.log(apiReport)
       this.api_report.push(apiReport)
 
       if (answer.is_valid) {

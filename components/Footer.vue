@@ -8,12 +8,29 @@
           © 2019
         </b-col>
 
-        <div class="col text-right"></div>
+        <div class="col text-right">
+          <b-spinner
+            v-if="loading"
+            variant="primary"
+            type="grow"
+            label="Caricamento..."
+          ></b-spinner>
+        </div>
       </b-row>
     </b-container>
   </footer>
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState({
+      // arrow functions can make the code very succinct!
+      loading({ loading }) {
+        return loading.status
+      }
+    })
+  }
+}
 </script>

@@ -8,8 +8,13 @@
         :title="link.title"
         class="text-center"
       >
-        {{ link.label }}
-        <sup v-if="link.count">{{ link.count }}</sup>
+        <h2 class="h3 mb-0">
+          {{ link.label }}
+          <b-badge v-if="link.count" class="text-white">{{
+            link.count
+          }}</b-badge>
+        </h2>
+        <p v-if="link.desc" class="mb-0">{{ link.desc }}</p>
       </b-list-group-item>
     </b-list-group>
   </div>

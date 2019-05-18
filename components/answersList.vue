@@ -9,9 +9,7 @@
       class="quiz-question"
     >
       <article class="card question-card">
-        <h5 class="card-header">
-          {{ question.question }}
-        </h5>
+        <h2 class="card-header h3 mb-0" v-html="question.question"></h2>
 
         <div class="list-group">
           <button
@@ -21,8 +19,12 @@
             class="list-group-item list-group-item-action btn-answer"
             @click="validateAnswer(question, answer)"
           >
-            {{ answer.text }}<br />
-            {{ answer.is_valid }}
+            <p class="mb-0">
+              <span v-html="answer.text"></span>
+              <b-badge v-if="isEvnDev" class="text-white">{{
+                answer.is_valid
+              }}</b-badge>
+            </p>
           </button>
         </div>
         <div class="question-details text-center pt-1 pb-1">
@@ -36,7 +38,7 @@
       </article>
       <button
         v-show="showContinueBtn"
-        class="btn btn-primary ml-auto mr-auto mt-3 w-100"
+        class="btn btn-secondary ml-auto mr-auto mt-3 w-100"
         @click="nextQuestion(question)"
       >
         Continua
@@ -65,7 +67,8 @@ export default {
       report: { valid: [], invalid: [] },
       api_report: [],
       showContinueBtn: false,
-      activeID: this.quizDetails.questions[0].ID
+      activeID: this.quizDetails.questions[0].ID,
+      isEvnDev: process.env && process.env.NODE_ENV !== 'production'
     }
   },
   computed: {
@@ -180,11 +183,11 @@ export default {
       const container = document.getElementById('quiz-container')
 
       container.innerHTML =
-        'Hai risposto correttamente a ' +
+        '<p class="text-center">Hai risposto correttamente a ' +
         this.report.valid.length +
         ' domande su ' +
         this.total +
-        '.'
+        '.</p>'
     },
     getDateTime() {
       const today = new Date()

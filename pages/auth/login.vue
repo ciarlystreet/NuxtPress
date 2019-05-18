@@ -28,9 +28,6 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
   </div>
 </template>
 
@@ -50,25 +47,28 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-      const $this = this
-      this.$axios
+      const self = this
+      self.$nuxt.$loading.start()
+      self.$axios
         .post('/wp-json/jwt-auth/v1/token', {
-          username: this.form.email,
-          password: this.form.password
+          username: self.form.email,
+          password: self.form.password
         })
         .then(function(response) {
+          self.$nuxt.$loading.finish()
           if (response.data.token) {
             const auth = response.data.token
-            $this.$store.commit('login/setAuth', auth)
+            self.$store.commit('login/setAuth', auth)
             Cookie.set('auth', auth)
 
             const user = response.data.user
-            $this.$store.commit('currentUser/setUser', user)
+            self.$store.commit('currentUser/setUser', user)
             Cookie.set('user_info', user)
-            $this.$router.push('/quiz')
+            self.$router.push('/quiz')
           }
         })
         .catch(function(error) {
+          self.$nuxt.$loading.finish()
           if (error.request !== undefined && error.request.status === 403) {
             // eslint-disable-next-line no-console
             console.error(JSON.parse(error.request.response))

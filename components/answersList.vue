@@ -95,7 +95,7 @@ export default {
         item.disabled = false
       })
     },
-    validateAnswer(question, answer) {
+    async validateAnswer(question, answer) {
       this.disableAnswersBtn()
       const currentAnswer = document.getElementById(
         'question-' + question.ID + '-answer-' + answer.id
@@ -115,10 +115,17 @@ export default {
       this.api_report.push(apiReport)
 
       if (answer.is_valid) {
+        this.$store.commit('transitions/activate', 'slide-left')
+
         currentAnswer.classList.add('bg-success', 'text-light')
         this.report.valid.push(report)
-        this.nextQuestion(question, answer)
+        const self = this
+
+        await this.sleep(self.$store.state.transitions.duration)
+        self.nextQuestion(question, answer)
       } else {
+        this.$store.commit('transitions/activate', 'slide-right')
+
         currentAnswer.classList.add('bg-danger', 'text-light')
         question.answers.forEach(item => {
           if (item.is_valid)
@@ -133,8 +140,11 @@ export default {
       }
     },
     nextQuestion(question, answer) {
+      if (!answer) this.$store.commit('transitions/activate', 'slide-left') // if event origin is btn continue
+
       this.enableAnswersBtn()
       this.showContinueBtn = false
+
       const nextElement = document.getElementById('question-' + question.ID)
         .nextSibling
       const questionElement =

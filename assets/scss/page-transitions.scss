@@ -1,0 +1,55 @@
+$transition-duration: 0.3s; // 5s
+$bonuce-duration: 0.6s; // s
+
+#app-container {
+  transition: all $transition-duration cubic-bezier(0.33, 0, 0.1, 1);
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity $transition-duration;
+}
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in $bonuce-duration;
+}
+.bounce-leave-active {
+  animation: bounce-out $transition-duration;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.slide-left-enter-active,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate(30px, 0);
+}
+.slide-left-leave-active,
+.slide-right-enter-active {
+  opacity: 0;
+  transform: translate(-30px, 0);
+}

@@ -28,6 +28,12 @@
 
         <b-button type="submit" variant="info">Invia</b-button>
         <b-button type="reset" variant="danger">Resetta</b-button>
+        <b-button
+          :to="'/auth/registrazione'"
+          variant="primary"
+          class="text-white"
+          >Registrati</b-button
+        >
       </b-form>
     </b-card-text>
   </b-card>

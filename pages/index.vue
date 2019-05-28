@@ -5,7 +5,7 @@
       <b-card-text>
         <div v-if="$store.state.login.auth">
           Hai già effettuato l'accesso
-          <button @click="logout">
+          <button class="btn btn-secondary text-white" @click="logout">
             Logout
           </button>
         </div>

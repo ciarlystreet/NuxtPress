@@ -1,24 +1,24 @@
 <template>
-  <no-ssr>
+  <div>
     <!-- [no-ss] To skip error: The client-side rendered virtual DOM tree is not matching server-rendered content -->
     <header id="site-header" class="font-secondary">
       <nav class="navbar navbar-light bg-light vh-secondary">
-        <nuxt-link to="/quiz" class="navbar-brand" title="Elenco Materie">
+        <nuxt-link to="/" class="navbar-brand" title="Elenco Materie">
           <img src="/images/logo.png" alt="logo" />
         </nuxt-link>
-
-        <template v-if="display_name && is_user_logged_in">
-          <nuxt-link to="/profilo" class="user-display-name mr-3">
-            <span class="align-middle"> Ciao {{ display_name }} </span>
-            <emoji
-              emoji="heart_eyes"
-              set="emojione"
-              :size="20"
-              class="align-middle"
-            />
-          </nuxt-link>
-        </template>
-
+        <no-ssr>
+          <template v-if="display_name && is_user_logged_in">
+            <nuxt-link to="/profilo" class="user-display-name mr-3">
+              <span class="align-middle"> Ciao {{ display_name }} </span>
+              <emoji
+                emoji="heart_eyes"
+                set="emojione"
+                :size="20"
+                class="align-middle"
+              />
+            </nuxt-link>
+          </template>
+        </no-ssr>
         <a
           v-if="is_user_logged_in"
           class="logout"
@@ -29,7 +29,7 @@
         </a>
       </nav>
     </header>
-  </no-ssr>
+  </div>
 </template>
 
 <script>

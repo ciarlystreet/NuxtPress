@@ -8,7 +8,7 @@
         :title="link.title"
         class="text-center"
       >
-        <h2 class="h3 mb-0">
+        <h2 class="h4 mb-0">
           {{ link.label }}
           <b-badge v-if="link.count" class="text-white">{{
             link.count

@@ -1,7 +1,7 @@
 <template>
   <b-card id="form-login" header="Accedi">
     <b-card-text>
-      <b-form v-if="show" @submit="onSubmit" @reset="onReset">
+      <b-form v-if="show" @submit.prevent="onSubmit" @reset="onReset">
         <b-form-group
           id="input-group-1"
           label="Indirizzo Email:"
@@ -11,17 +11,16 @@
             id="input-1"
             v-model="form.email"
             type="email"
-            required
             placeholder="Insierisci il tuo indirizzo email"
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-1" label="Password:" label-for="input-1">
+        <b-form-group id="input-group-2" label="Password:" label-for="input-2">
           <b-form-input
             id="input-2"
+            v-model.trim="form.password"
             v-model="form.password"
             type="password"
-            required
             placeholder="Insierisci la tua password"
           ></b-form-input>
         </b-form-group>
@@ -32,8 +31,8 @@
           :to="'/auth/registrazione'"
           variant="primary"
           class="text-white"
-          >Registrati</b-button
-        >
+          >Registrati
+        </b-button>
       </b-form>
     </b-card-text>
   </b-card>
@@ -53,8 +52,7 @@ export default {
   },
   middleware: 'notAuthenticated',
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault()
+    onSubmit() {
       const self = this
       self.$nuxt.$loading.start()
       self.$axios
@@ -83,8 +81,7 @@ export default {
           }
         })
     },
-    onReset(evt) {
-      evt.preventDefault()
+    onReset() {
       // Reset our form values
       this.form.email = ''
       this.form.password = ''

@@ -44,8 +44,6 @@ export default {
     ...mapState({
       // arrow functions can make the code very succinct!
       display_name({ currentUser }) {
-        // eslint-disable-next-line no-console
-        console.log(currentUser)
         const name =
           currentUser && currentUser.user_info
             ? ' ' + currentUser.user_info.display_name

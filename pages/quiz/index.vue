@@ -40,12 +40,12 @@ export default {
           href: '/classifica-utenti/',
           title: 'Classifica Utenti',
           label: 'Classifica Utenti'
-        },
-        {
-          href: '/profilo/',
-          title: 'Profilo',
-          label: 'Profilo'
         }
+        // {
+        //   href: '/profilo/',
+        //   title: 'Profilo',
+        //   label: 'Profilo'
+        // }
       ]
     }
   }

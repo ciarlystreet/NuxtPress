@@ -1,5 +1,5 @@
 const Cookie = require('js-cookie')
-export default function({ store }) {
+export default function({ app, store }) {
   const cookieUserInfo = Cookie.get('user_info')
     ? JSON.parse(Cookie.get('user_info'))
     : null

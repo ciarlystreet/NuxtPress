@@ -3,12 +3,12 @@
     <!-- [no-ss] To skip error: The client-side rendered virtual DOM tree is not matching server-rendered content -->
     <header id="site-header" class="font-secondary">
       <nav class="navbar navbar-light bg-light vh-secondary">
-        <nuxt-link to="/" class="navbar-brand" title="Elenco Materie">
+        <nuxt-link to="/quiz" class="navbar-brand" title="Elenco Materie">
           <img src="/images/logo.png" alt="logo" />
         </nuxt-link>
         <no-ssr>
           <template v-if="display_name && is_user_logged_in">
-            <nuxt-link to="/profilo" class="user-display-name mr-3">
+            <nuxt-link to="/quiz" class="user-display-name mr-3">
               <span class="align-middle"> Ciao {{ display_name }} </span>
               <emoji
                 emoji="heart_eyes"
@@ -44,6 +44,8 @@ export default {
     ...mapState({
       // arrow functions can make the code very succinct!
       display_name({ currentUser }) {
+        // eslint-disable-next-line no-console
+        console.log(currentUser)
         const name =
           currentUser && currentUser.user_info
             ? ' ' + currentUser.user_info.display_name

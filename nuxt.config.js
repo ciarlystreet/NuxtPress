@@ -1,7 +1,9 @@
 import pkg from './package'
+const env = require('dotenv').config()
 
 export default {
   mode: 'universal',
+  env: env.parsed,
 
   /*
    ** Headers of the page
@@ -45,7 +47,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/dotenv'
   ],
 
   /*
@@ -65,14 +68,14 @@ export default {
      */
     extend(config, ctx) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
+      // if (ctx.isDev && ctx.isClient) {
+      //   config.module.rules.push({
+      //     enforce: 'pre',
+      //     test: /\.(js|vue)$/,
+      //     loader: 'eslint-loader',
+      //     exclude: /(node_modules)/
+      //   })
+      // }
     }
   }
 }

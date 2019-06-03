@@ -4,7 +4,7 @@
       <b-list-group-item
         v-for="(link, index) in links"
         :key="index"
-        :to="link.href"
+        :to="link.disabled ? '' : link.href"
         :title="link.title"
         class="text-center"
       >

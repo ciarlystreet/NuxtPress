@@ -57,6 +57,7 @@ export default {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: process.env.WP_BASE_URL,
+    proxyHeaders: false,
     credentials: false
   },
 

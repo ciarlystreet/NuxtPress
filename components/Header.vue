@@ -42,7 +42,6 @@ export default {
   },
   computed: {
     ...mapState({
-      // arrow functions can make the code very succinct!
       display_name({ currentUser }) {
         const name =
           currentUser && currentUser.user_info
@@ -52,7 +51,7 @@ export default {
         return name
       },
       is_user_logged_in({ login }) {
-        return login.auth
+        return login && login.auth !== null ? "'" + login.auth + "'" : false
       }
     })
   },

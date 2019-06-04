@@ -157,6 +157,9 @@ export default {
           ? nextElement
           : false
 
+      // eslint-disable-next-line no-console
+      console.log(questionElement)
+
       if (questionElement) {
         this.count++
         this.activeID = questionElement.getAttribute('data-id')
@@ -169,11 +172,9 @@ export default {
       this.$nuxt.$loading.start()
       this.$axios
         .post('/wp-json/nuxt/v1/saveuserstats', {
-          params: {
-            user_id: this.user_id,
-            argument_id: this.argument.term_id,
-            answers: this.api_report
-          }
+          user_id: parseInt(this.user_id),
+          argument_id: parseInt(this.argument.term_id),
+          answers: this.api_report
         })
         .then(response => {
           this.$nuxt.$loading.finish()

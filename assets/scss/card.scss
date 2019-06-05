@@ -1,0 +1,11 @@
+.card {
+  background-color: transparent;
+  border: none;
+}
+.card-header {
+  background-color: #2e8cf1ba;
+  box-shadow: inset 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
+  /* border-radius: 19px; */
+  overflow: hidden;
+  color: color('white');
+}

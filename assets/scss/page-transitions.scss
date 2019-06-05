@@ -2,7 +2,12 @@ $transition-duration: 0.3s; // 5s
 $bonuce-duration: 0.6s; // s
 
 #app-container {
-  transition: all $transition-duration cubic-bezier(0.33, 0, 0.1, 1);
+  transition: all 0.3s cubic-bezier(0.33, 0, 0.1, 1);
+  background: #ececec33;
+  padding: 40px 20px;
+  box-shadow: -1px 0px 13px -5px rgba(0, 0, 0, 0.75);
+  border-radius: 50px;
+  overflow: hidden;
 }
 
 .page-enter-active,

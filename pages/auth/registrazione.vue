@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import { SET_AUTH, SET_USER } from '~/store/auth'
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   data() {
@@ -126,11 +127,11 @@ export default {
           self.$nuxt.$loading.finish()
           if (response.data.token) {
             const auth = response.data.token
-            self.$store.commit('login/setAuth', auth)
+            self.$store.commit(SET_AUTH, auth)
             Cookie.set('auth', auth)
 
             const user = response.data.user
-            self.$store.commit('currentUser/setUser', user)
+            self.$store.commit(SET_USER, user)
             Cookie.set('user_info', user)
 
             self.$router.push(process.env.LOGGED_IN_USER_REDIRECT)

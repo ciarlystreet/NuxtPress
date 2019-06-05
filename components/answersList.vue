@@ -83,8 +83,7 @@ export default {
     },
     ...mapState({
       // arrow functions can make the code very succinct!
-      user_id: state =>
-        state.currentUser.user_info ? state.currentUser.user_info.ID : null
+      user_id: state => (state.auth.user_info ? state.auth.user_info.ID : null)
     })
   },
   methods: {
@@ -157,9 +156,6 @@ export default {
           ? nextElement
           : false
 
-      // eslint-disable-next-line no-console
-      console.log(questionElement)
-
       if (questionElement) {
         this.count++
         this.activeID = questionElement.getAttribute('data-id')
@@ -184,7 +180,7 @@ export default {
       const container = document.getElementById('quiz-container')
 
       container.innerHTML =
-        '<p class="text-center">Hai risposto correttamente a ' +
+        '<p class="text-center mb-0">Hai risposto correttamente a ' +
         this.report.valid.length +
         ' domande su ' +
         this.total +

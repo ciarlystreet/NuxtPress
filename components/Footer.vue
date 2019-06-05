@@ -26,7 +26,6 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      // arrow functions can make the code very succinct!
       loading({ loading }) {
         return loading.status
       }

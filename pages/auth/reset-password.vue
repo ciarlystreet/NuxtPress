@@ -73,7 +73,6 @@
 </template>
 
 <script>
-const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   data() {
     return {
@@ -92,24 +91,6 @@ export default {
     }
   },
   middleware: 'notAuthenticated',
-  beforeCreate() {
-    // Check if user is logged in on page refresh
-    if (process.client) {
-      this.$nextTick(() => {
-        this.$nuxt.$loading.start()
-        if (
-          process.client &&
-          Cookie.get('auth') !== null &&
-          Cookie.get('auth') !== undefined
-        ) {
-          this.$router.push(process.env.LOGGED_IN_USER_REDIRECT)
-        } else {
-          this.show = true
-        }
-        this.$nuxt.$loading.finish()
-      })
-    }
-  },
   methods: {
     onSubmit() {
       const self = this

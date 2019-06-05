@@ -1,26 +1,19 @@
 <template>
   <div>
-    <!-- [no-ss] To skip error: The client-side rendered virtual DOM tree is not matching server-rendered content -->
     <header id="site-header" class="font-secondary">
       <nav class="navbar navbar-light bg-light vh-secondary">
         <nuxt-link to="/quiz" class="navbar-brand" title="Elenco Materie">
           <img src="/images/logo.png" alt="logo" />
         </nuxt-link>
         <no-ssr>
-          <template v-if="display_name && is_user_logged_in">
+          <template v-if="displayName && isUserLoggedIn">
             <nuxt-link to="/quiz" class="user-display-name mr-3">
-              <span class="align-middle"> Ciao {{ display_name }} </span>
-              <emoji
-                emoji="heart_eyes"
-                set="emojione"
-                :size="20"
-                class="align-middle"
-              />
+              <span class="align-middle"> Ciao {{ displayName }} 😍</span>
             </nuxt-link>
           </template>
         </no-ssr>
         <a
-          v-if="is_user_logged_in"
+          v-if="isUserLoggedIn"
           class="logout"
           title="Scollegati"
           @click="logout"
@@ -33,34 +26,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { Emoji } from 'emoji-mart-vue'
-const Cookie = process.client ? require('js-cookie') : undefined
+import { SET_AUTH, SET_USER } from '~/store/auth'
+import { mapGetters } from 'vuex'
 export default {
-  components: {
-    Emoji
-  },
   computed: {
-    ...mapState({
-      display_name({ currentUser }) {
-        const name =
-          currentUser && currentUser.user_info
-            ? ' ' + currentUser.user_info.display_name
-            : ''
-
-        return name
-      },
-      is_user_logged_in({ login }) {
-        return login && login.auth !== null ? "'" + login.auth + "'" : false
-      }
-    })
+    // Utilizziamo un getter per verificare se l'utente è loggato o meno
+    ...mapGetters('auth', ['isUserLoggedIn', 'displayName'])
   },
   methods: {
     logout() {
-      Cookie.remove('user_info')
-      Cookie.remove('auth')
-      this.$store.commit('login/setAuth', null)
-      this.$store.commit('currentUser/setUser', null)
+      this.$store.commit(SET_AUTH, null)
+      this.$store.commit(SET_USER, null)
       this.$router.push('/')
     }
   }

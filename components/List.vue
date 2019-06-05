@@ -6,7 +6,7 @@
         :key="index"
         :to="link.disabled ? '' : link.href"
         :title="link.title"
-        class="text-center"
+        class="text-center bg-light"
       >
         <h2 class="h4 mb-0">
           {{ link.label }}

@@ -1,5 +1,6 @@
 <template>
   <div v-if="show">
+    <pre>{{ isUserLoggedIn }}</pre>
     <b-card id="form-login" header="Login">
       <b-alert v-model="formError" variant="danger" dismissible>
         <p class="mb-0" v-html="formErrorMessage"></p>
@@ -53,7 +54,8 @@
 </template>
 
 <script>
-const Cookie = process.client ? require('js-cookie') : undefined
+import { mapGetters } from 'vuex'
+import { SET_AUTH, SET_USER } from '~/store/auth'
 export default {
   data() {
     return {
@@ -61,29 +63,14 @@ export default {
         email: '',
         password: ''
       },
-      show: false,
+      show: true,
       formError: false,
       formErrorMessage: ''
     }
   },
-  middleware: 'notAuthenticated',
-  beforeCreate() {
-    // Check if user is logged in on page refresh
-    if (process.client) {
-      this.$nextTick(() => {
-        this.$nuxt.$loading.start()
-        if (
-          process.client &&
-          Cookie.get('auth') !== null &&
-          Cookie.get('auth') !== undefined
-        ) {
-          this.$router.push(process.env.LOGGED_IN_USER_REDIRECT)
-        } else {
-          this.show = true
-        }
-        this.$nuxt.$loading.finish()
-      })
-    }
+  computed: {
+    // Utilizziamo un getter per verificare se l'utente è loggato o meno
+    ...mapGetters('auth', ['isUserLoggedIn'])
   },
   methods: {
     onSubmit() {
@@ -100,12 +87,10 @@ export default {
           self.$nuxt.$loading.finish()
           if (response.data.token) {
             const auth = response.data.token
-            self.$store.commit('login/setAuth', auth)
-            Cookie.set('auth', auth)
+            self.$store.commit(SET_AUTH, auth)
 
             const user = response.data.user
-            self.$store.commit('currentUser/setUser', user)
-            Cookie.set('user_info', user)
+            self.$store.commit(SET_USER, user)
 
             self.$router.push(process.env.LOGGED_IN_USER_REDIRECT)
             // self.$router.back()

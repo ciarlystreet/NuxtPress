@@ -1,4 +1,6 @@
 $blue: #007bff !default;
+$brown: #caa24633 !default;
+$brown-light: #ebe3d7 !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #e83e8c !default;
@@ -24,6 +26,8 @@ $black: #000 !default;
 
 $colors: (
   blue: $blue,
+  brown: $brown,
+  brown-light: $brown-light,
   indigo: $indigo,
   purple: $purple,
   pink: $pink,

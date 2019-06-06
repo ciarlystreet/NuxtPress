@@ -11,7 +11,6 @@
 <script>
 import answersList from '~/components/answersList.vue'
 export default {
-  middleware: 'authenticated',
   components: {
     answersList
   },
@@ -33,7 +32,7 @@ export default {
     let title = null
     let quizDetails = null
     try {
-      const { data } = await $axios.get('/wp-json/nuxt/v1/quiz', {
+      const { data } = await $axios.get(process.env.API_GET_QUIZ, {
         params: {
           argument: params.slug,
           orderby: 'rand',

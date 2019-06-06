@@ -7,41 +7,41 @@
 </template>
 
 <script>
+/**
+ * Importiamo i componenti
+ */
+import { mapState } from 'vuex'
+import { NAMESPACE, SET_ARGUMENTS } from '~/store/api_quiz'
 import List from '~/components/List.vue'
 export default {
-  middleware: 'authenticated',
+  /**
+   * Definiamo i componenti
+   */
   components: {
     List
   },
+  /**
+   * Definiamo i dati reattivi
+   */
   data() {
     return {
-      title: 'Materie disponibili',
-      links: []
+      title: 'Materie disponibili'
     }
   },
-  async asyncData({ $axios, error, params }) {
-    try {
-      const { data } = await $axios.get('/wp-json/nuxt/v1/arguments')
-      const links = []
-      data.forEach(element => {
-        const link = {
-          href: element.slug,
-          title: element.name,
-          label: element.name,
-          count: element.count
-        }
-        links.push(link)
-      })
-
-      return {
-        links
-      }
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: 'Unable to fetch event #' + params.id
-      })
-    }
+  computed: {
+    // Utilizziamo un getter per ottenere gli argomenti del quiz precedentemente scaricati tramite fetch (vedi sotto)
+    ...mapState(NAMESPACE, { links: state => state.arguments })
+  },
+  /**
+   * Otteniamo i vari argomenti disponibili tramite fetch
+   * Questo permette di scaricare i contenuti solo al primo accesso alla pagina (dev)
+   * o addirittura averli già disponibili (generate)
+   *
+   * Il fetch non rende disponibili i dati che riceve al componente pertanto salviamo il riultato nello store Vuex
+   */
+  async fetch({ store, params }) {
+    if (!store.state.api_quiz.arguments.length)
+      await store.dispatch(SET_ARGUMENTS)
   }
 }
 </script>

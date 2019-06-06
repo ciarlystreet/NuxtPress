@@ -90,7 +90,6 @@ export default {
       appName: 'My app name'
     }
   },
-  middleware: 'notAuthenticated',
   methods: {
     onSubmit() {
       const self = this

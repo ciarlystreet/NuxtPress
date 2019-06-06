@@ -90,7 +90,6 @@ export default {
       formErrorMessage: ''
     }
   },
-  middleware: 'notAuthenticated',
   beforeCreate() {
     // Check if user is logged in on page refresh
     if (process.client) {

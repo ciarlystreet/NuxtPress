@@ -61,10 +61,11 @@ export const getters = {
     return state.auth !== null
   },
   displayName: state => {
-    const displayName =
-      state.user_info !== null && state.user_info.display_name
-        ? state.user_info.display_name
-        : false
-    return displayName
+    return state.user_info !== null && state.user_info.display_name
+      ? state.user_info.display_name
+      : false
+  },
+  getCurrentUserID: state => {
+    return state.auth.user_info ? state.auth.user_info.ID : null
   }
 }

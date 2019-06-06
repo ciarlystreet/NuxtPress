@@ -1,9 +1,9 @@
 <template>
-  <section class="container-fluid">
+  <div class="argument-list">
     <h1 v-if="title" class="text-center mb-3 font-secondary">{{ title }}</h1>
 
     <List :links="links" />
-  </section>
+  </div>
 </template>
 
 <script>
@@ -27,20 +27,25 @@ export default {
       links: []
     }
   },
+  /**
+   * Otteniamo i vari argomenti disponibili in maniera asincrona
+   */
   async asyncData({ $axios, error, params }) {
+    // eslint-disable-next-line no-console
+    console.log('asyncData')
     try {
       const { data } = await $axios.get(process.env.API_GET_ARGUMENTS)
       const links = []
+      // Per ogni argomento del quiz creiamo un link da passare al componente "List"
       data.forEach(element => {
         const link = {
-          href: element.slug,
+          href: element.slug, // Lo slug è l'informazione che abbiamo scelto di far utilizzare a vue route per generare i link dinamicamente: pages/quiz/quiz-per-argomento/_slug.vue
           title: element.name,
           label: element.name,
           count: element.count
         }
         links.push(link)
       })
-
       return {
         links
       }

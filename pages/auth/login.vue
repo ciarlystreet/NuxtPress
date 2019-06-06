@@ -55,7 +55,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { SET_AUTH, SET_USER } from '~/store/auth'
+import { NAMESPACE, SET_AUTH, SET_USER } from '~/store/auth'
 export default {
   data() {
     return {
@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     // Utilizziamo un getter per verificare se l'utente è loggato o meno
-    ...mapGetters('auth', ['isUserLoggedIn'])
+    ...mapGetters(NAMESPACE, ['isUserLoggedIn'])
   },
   methods: {
     onSubmit() {

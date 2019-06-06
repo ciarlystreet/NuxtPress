@@ -51,8 +51,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+/**
+ * Importiamo il mapGetters di vuex
+ */
+import { mapGetters } from 'vuex'
+import { NAMESPACE } from '~/store/auth'
 export default {
+  /**
+   * Definiamo le props
+   * I dati che il componente si aspetta di ricevere
+   */
   props: {
     quizDetails: {
       type: Object,
@@ -61,6 +69,9 @@ export default {
       }
     }
   },
+  /**
+   * Definiamo i dati reattivi
+   */
   data() {
     return {
       count: 1,
@@ -71,6 +82,10 @@ export default {
       isEvnDev: process.env && process.env.NODE_ENV !== 'production'
     }
   },
+  /**
+   * Otteniamo le "Computed Properties" che ci aiutano a mantenere più pulito il codice
+   * nel caso in qui nel pomponente abbiamo bisogno di dati che sono ril risultato di una o più elaborazioni.
+   */
   computed: {
     questions() {
       return this.quizDetails.questions
@@ -81,24 +96,28 @@ export default {
     total() {
       return this.quizDetails.questions.length
     },
-    ...mapState({
-      // arrow functions can make the code very succinct!
-      user_id: state => (state.auth.user_info ? state.auth.user_info.ID : null)
-    })
+    // Utilizziamo un getter per ottenere l'id dell'utente corrente
+    ...mapGetters(NAMESPACE, ['getCurrentUserID'])
   },
+  /**
+   * Definiamo i metodi che saranno utilizzati dal componente
+   */
   methods: {
+    // Disabilita i pulsanti
     disableAnswersBtn() {
       document.querySelectorAll('.btn-answer').forEach(item => {
         item.disabled = true
       })
     },
+    // Abilita i pulsanti
     enableAnswersBtn() {
       document.querySelectorAll('.btn-answer').forEach(item => {
         item.disabled = false
       })
     },
+    // Validazione risposta
     async validateAnswer(question, answer) {
-      this.disableAnswersBtn()
+      this.disableAnswersBtn() // Disabilitiamo il click sulle risposte
       const currentAnswer = document.getElementById(
         'question-' + question.ID + '-answer-' + answer.id
       )
@@ -107,6 +126,7 @@ export default {
         question: question.question,
         answer: answer.text
       }
+      // Prepariamo il report che salveremo su WordPress tramite API
       const apiReport = {
         argument_id: question.argument.term_id,
         question_id: question.ID,
@@ -116,19 +136,21 @@ export default {
       }
       this.api_report.push(apiReport)
 
+      // Risposta valida
       if (answer.is_valid) {
-        this.$store.commit('transitions/activate', 'slide-left')
+        this.$store.commit('transitions/activate', 'slide-left') // Avviamo l'animazione in uscita
+        currentAnswer.classList.add('bg-success', 'text-light') // Coloriamo la risposta
+        this.report.valid.push(report) // Aggiungiamo il risultato al report delle risposte corrette
 
-        currentAnswer.classList.add('bg-success', 'text-light')
-        this.report.valid.push(report)
+        // INCREDIBILE ci tocca aggiungere una pausa per evitare che il passaggio, da una risposta all'altra, sia troppo rapido 🤩
         const self = this
-
-        await this.sleep(self.$store.state.transitions.duration)
-        self.nextQuestion(question, answer)
+        await this.sleep(self.$store.state.transitions.duration) // sleep è una helper custom - vedi plugins/js-helpers.client.js
+        self.nextQuestion(question, true) // Mostriamo la domanda successiva
       } else {
-        this.$store.commit('transitions/activate', 'slide-right')
-
-        currentAnswer.classList.add('bg-danger', 'text-light')
+        // Risposta errata
+        this.$store.commit('transitions/activate', 'slide-right') // Avvio l'animazione in uscita
+        currentAnswer.classList.add('bg-danger', 'text-light') // Coloriamo la risposta
+        // Cerchiamo la risposta corretta e la coloriamo
         question.answers.forEach(item => {
           if (item.is_valid)
             document
@@ -136,17 +158,21 @@ export default {
               .classList.add('bg-success', 'text-light')
         })
 
+        // Mostriamo il pulsante che permetterà di passare alla domanda successiva dopo aver riflettuto sui propri errori e sul perché della vita 🤔
         this.showContinueBtn = true
-
-        this.report.invalid.push(report)
+        this.report.invalid.push(report) // Aggiungiamo il risultato al report delle risposte errate
       }
     },
-    nextQuestion(question, answer) {
-      if (!answer) this.$store.commit('transitions/activate', 'slide-left') // if event origin is btn continue
+    // Passiamo alla domanda successiva
+    nextQuestion(question, skipTransition) {
+      // Se l'origine dell'evento è il click sul pulsante "continua" avviamo l'animazione di uscita della risposta predentemente errata
+      if (!skipTransition)
+        this.$store.commit('transitions/activate', 'slide-left')
 
-      this.enableAnswersBtn()
-      this.showContinueBtn = false
+      this.enableAnswersBtn() // Abilitiamo il click sulle risposte
+      this.showContinueBtn = false // nascondiamo il pulsante continua
 
+      // Cerchiamo la domanda successiva
       const nextElement = document.getElementById('question-' + question.ID)
         .nextSibling
       const questionElement =
@@ -156,16 +182,20 @@ export default {
           ? nextElement
           : false
 
+      // Domanda successiva trovata
       if (questionElement) {
         this.count++
         this.activeID = questionElement.getAttribute('data-id')
       } else {
-        this.saveUserStats()
-        this.showReport()
+        // Non vi sono altre domande, fine del quiz
+        this.saveUserStats() // Salviamo le statistiche via API
+        this.showReport() // Mostrimao il report del quiz
       }
     },
+    // Salviamo
     saveUserStats() {
-      this.$nuxt.$loading.start()
+      this.$nuxt.$loading.start() // Avviamo il loader di Nuxt
+      // Salviamo le statistiche tramite API
       this.$axios
         .post('/wp-json/nuxt/v1/saveuserstats', {
           user_id: parseInt(this.user_id),
@@ -176,6 +206,7 @@ export default {
           this.$nuxt.$loading.finish()
         })
     },
+    // Mostriamo il resport
     showReport() {
       const container = document.getElementById('quiz-container')
 
@@ -186,6 +217,8 @@ export default {
         this.total +
         '.</p>'
     },
+    // Otteniamo il datetime corrente per salvare effettivamente la data in cui ha finito il quiz
+    // Se non trasmessa WordPress salverà il datetime al momento del salvataggio
     getDateTime() {
       const today = new Date()
       const date =
@@ -196,6 +229,7 @@ export default {
         today.getDate()
       const time =
         today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+
       return date + ' ' + time
     }
   }

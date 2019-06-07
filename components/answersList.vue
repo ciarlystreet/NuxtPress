@@ -73,8 +73,6 @@ export default {
    * Definiamo i dati reattivi
    */
   data() {
-    // eslint-disable-next-line no-console
-    console.log(this.quizDetails)
     return {
       count: 1,
       report: { valid: [], invalid: [] },

@@ -50,10 +50,10 @@ export default {
   async asyncData({ $axios, error, params, payload }) {
     let title = null
     let quizDetails = {}
-    // TODO: vedere di integrare il payload https://nuxtjs.org/api/configuration-generate/
+    // In fase di generazione dei percorsi dinamici (_slug) utilizziamo
+    // il payload per non dover rifare la chiamata API N° volte
+    // quante sono le pagine da creare
     if (payload) {
-      // eslint-disable-next-line no-console
-      console.log('payload')
       title = payload.name
       quizDetails.argument = {
         count: payload.count,
@@ -64,8 +64,6 @@ export default {
       }
       quizDetails.questions = payload.questions
     } else {
-      // eslint-disable-next-line no-console
-      console.log('no payload')
       try {
         const { data } = await $axios.get(process.env.API_GET_QUIZ, {
           params: {

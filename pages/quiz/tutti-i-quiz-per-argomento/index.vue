@@ -27,6 +27,13 @@ export default {
       links: []
     }
   },
+  /**
+   * Otteniamo tramite il metodo asyncData
+   * Questo permette di gestire le operazioni asincrone prima di impostare i dati del componente.
+   * Verrà chiamato lato server una volta (sulla prima richiesta all'app Nuxt) e lato client durante la navigazione verso ulteriori percorsi.
+   *
+   * A differenza del metodo fetch, rende direttamente disponibili al comenente i dati che ottiene
+   */
   async asyncData({ $axios, error, params }) {
     try {
       const { data } = await $axios.get(process.env.API_GET_ARGUMENTS)

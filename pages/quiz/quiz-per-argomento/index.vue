@@ -33,7 +33,7 @@ export default {
     ...mapState(NAMESPACE, { links: state => state.arguments })
   },
   /**
-   * Otteniamo i vari argomenti disponibili tramite fetch
+   * Otteniamo i vari argomenti disponibili tramite il metodo fetch
    * Questo permette di scaricare i contenuti solo al primo accesso alla pagina (dev)
    * o addirittura averli già disponibili (generate)
    *

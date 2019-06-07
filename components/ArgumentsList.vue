@@ -31,8 +31,6 @@ export default {
    * Otteniamo i vari argomenti disponibili in maniera asincrona
    */
   async asyncData({ $axios, error, params }) {
-    // eslint-disable-next-line no-console
-    console.log('asyncData')
     try {
       const { data } = await $axios.get(process.env.API_GET_ARGUMENTS)
       const links = []

@@ -7,11 +7,20 @@
 </template>
 
 <script>
+/**
+ * Importiamo i componenti
+ */
 import List from '~/components/List.vue'
 export default {
+  /**
+   * Definiamo i componenti
+   */
   components: {
     List
   },
+  /**
+   * Definiamo i dati reattivi
+   */
   data() {
     return {
       title: 'Datti da fare',

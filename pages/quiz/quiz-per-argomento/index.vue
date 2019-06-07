@@ -29,7 +29,7 @@ export default {
     }
   },
   computed: {
-    // Utilizziamo un getter per ottenere gli argomenti del quiz precedentemente scaricati tramite fetch (vedi sotto)
+    // Otteniamo i dati, utilizzati per popolare il componente, direttamente dallo store
     ...mapState(NAMESPACE, { links: state => state.arguments })
   },
   /**
@@ -41,6 +41,7 @@ export default {
    */
   async fetch({ store, params }) {
     if (!store.state.api_quiz.arguments.length)
+      // chiamiamo la action che ottiene i dati e li salva nello store mediante una mutation
       await store.dispatch(SET_ARGUMENTS)
   }
 }

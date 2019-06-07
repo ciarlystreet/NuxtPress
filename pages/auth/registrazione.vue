@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card id="form-login" header="Registration">
+    <b-card id="form-login" header="Registration" class="bg-light">
       <b-alert v-model="formError" variant="danger" dismissible>
         <p class="mb-0" v-html="formErrorMessage"></p>
       </b-alert>

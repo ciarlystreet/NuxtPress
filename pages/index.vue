@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card v-if="show" header="Benvenuto">
+    <b-card v-if="show" header="Benvenuto" class="bg-light">
       <b-card-text>
         <div v-if="isUserLoggedIn">
           Hai già effettuato l'accesso

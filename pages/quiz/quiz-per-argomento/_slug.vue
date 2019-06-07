@@ -47,24 +47,41 @@ export default {
   /**
    * Otteniamo i quiz appartenti alla categoria corrente
    */
-  async asyncData({ $axios, error, params }) {
+  async asyncData({ $axios, error, params, payload }) {
     let title = null
-    let quizDetails = null
-    try {
-      const { data } = await $axios.get(process.env.API_GET_QUIZ, {
-        params: {
-          argument: params.slug,
-          orderby: 'rand',
-          limit: 30
-        }
-      })
-      title = data.argument.name
-      quizDetails = data
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: 'Unable to fetch event #' + params.id
-      })
+    let quizDetails = {}
+    // TODO: vedere di integrare il payload https://nuxtjs.org/api/configuration-generate/
+    if (payload) {
+      // eslint-disable-next-line no-console
+      console.log('payload')
+      title = payload.name
+      quizDetails.argument = {
+        count: payload.count,
+        description: payload.description,
+        id: payload.id,
+        name: payload.name,
+        slug: payload.slug
+      }
+      quizDetails.questions = payload.questions
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('no payload')
+      try {
+        const { data } = await $axios.get(process.env.API_GET_QUIZ, {
+          params: {
+            argument: params.slug,
+            orderby: 'rand',
+            limit: 30
+          }
+        })
+        title = data.argument.name
+        quizDetails = data
+      } catch (e) {
+        error({
+          statusCode: 503,
+          message: 'Unable to fetch event #' + params.id
+        })
+      }
     }
     return {
       title,

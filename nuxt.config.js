@@ -1,3 +1,4 @@
+import axios from 'axios'
 import pkg from './package'
 const env = require('dotenv').config()
 
@@ -76,6 +77,44 @@ export default {
       //     exclude: /(node_modules)/
       //   })
       // }
+    }
+  },
+  /**
+   * Configuriamo le route di nuxt in maniera tale
+   * che generi le pagine statiche degli slug dinamici
+   */
+  generate: {
+    // routes: function() {
+    //   // eslint-disable-next-line no-console
+    //   console.log(process.env.API_GET_ARGUMENTS)
+    //   return axios
+    //     .get(process.env.WP_BASE_URL + process.env.API_GET_ARGUMENTS)
+    //     .then(res => {
+    //       return res.data.map(argument => {
+    //         return '/quiz/quiz-per-argomento/' + argument.slug
+    //       })
+    //     })
+    //     .catch(res => {
+    //       // eslint-disable-next-line no-console
+    //       console.log(res.response)
+    //     })
+    // },
+    routes: function() {
+      return axios
+        .get(process.env.WP_BASE_URL + process.env.API_GET_ARGUMENTS, {
+          params: {
+            include_questions: true,
+            limit_questions: -1
+          }
+        })
+        .then(res => {
+          return res.data.map(argument => {
+            return {
+              route: '/quiz/quiz-per-argomento/' + argument.slug,
+              payload: argument
+            }
+          })
+        })
     }
   }
 }

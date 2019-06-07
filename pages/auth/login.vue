@@ -1,7 +1,6 @@
 <template>
   <div v-if="show">
-    <pre>{{ isUserLoggedIn }}</pre>
-    <b-card id="form-login" header="Login">
+    <b-card id="form-login" header="Login" class="bg-light">
       <b-alert v-model="formError" variant="danger" dismissible>
         <p class="mb-0" v-html="formErrorMessage"></p>
       </b-alert>
@@ -9,7 +8,7 @@
         <b-form @submit.prevent="onSubmit" @reset="onReset">
           <b-form-group
             id="input-group-1"
-            label="Email Address:"
+            label="Indirizzo e-mail:"
             label-for="input-1"
           >
             <b-form-input
@@ -17,7 +16,7 @@
               v-model="form.email"
               v-model.trim="form.email"
               type="email"
-              placeholder="Insert your address e-mail"
+              placeholder="inserisci il tuo indirizzo e-mail"
             ></b-form-input>
           </b-form-group>
 
@@ -31,21 +30,21 @@
               v-model.trim="form.password"
               v-model="form.password"
               type="password"
-              placeholder="Insert your password"
+              placeholder="Inserisci la tua password"
             ></b-form-input>
           </b-form-group>
 
           <nuxt-link class="mb-4 d-block" :to="'/auth/reset-password'"
-            >Lost your password?</nuxt-link
+            >Hai perso la password?</nuxt-link
           >
 
-          <b-button type="submit" variant="info">Send</b-button>
-          <b-button type="reset" variant="danger">Reset</b-button>
+          <b-button type="submit" variant="info">Invia</b-button>
+          <b-button type="reset" variant="danger">Resetta</b-button>
           <b-button
-            :to="'/auth/registration'"
+            :to="'/auth/registrazione'"
             variant="primary"
             class="text-white"
-            >Registration
+            >Registrati
           </b-button>
         </b-form>
       </b-card-text>

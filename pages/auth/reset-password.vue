@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card id="form-login" header="Reset Password">
+    <b-card id="form-login" header="Reset Password" class="bg-light">
       <b-alert
         v-model="formMessageStatus"
         :variant="formMessageType"
@@ -8,49 +8,51 @@
       >
         <p class="mb-0" v-html="formMessage"></p>
       </b-alert>
-      <b-button v-if="!show" :to="'/auth/login'" variant="info">Login</b-button>
+      <b-button v-if="!show" :to="'/auth/login'" variant="info"
+        >Accedi</b-button
+      >
 
       <b-card-text>
         <b-form v-if="show" @submit.prevent="onSubmit">
           <b-form-group
             v-if="!key"
             id="input-group-1"
-            label="Email Address:"
+            label="Indirizzo e-mail:"
             label-for="input-1"
           >
             <b-form-input
               id="input-1"
               v-model.trim="form.email"
               type="email"
-              placeholder="Insert your address e-mail"
+              placeholder="Inserisci il tuo indirizzo e-mail"
             ></b-form-input>
           </b-form-group>
 
           <b-form-group
             v-if="key"
             id="input-group-2"
-            label="New Password:"
+            label="Nuova Password:"
             label-for="input-2"
           >
             <b-form-input
               id="input-2"
               v-model.trim="form.newPassword"
               type="text"
-              placeholder="Insert a new password"
+              placeholder="Inserisci una nuova password"
             ></b-form-input>
           </b-form-group>
 
           <b-form-group
             v-if="key"
             id="input-group-3"
-            label="New Password Confirm:"
+            label="Conferma nuova password:"
             label-for="input-3"
           >
             <b-form-input
               id="input-3"
               v-model.trim="form.newPasswordConfirm"
               type="text"
-              placeholder="Confirm a new password"
+              placeholder="Conferma la nuova password"
             ></b-form-input>
           </b-form-group>
 
@@ -62,9 +64,9 @@
             :value="appName"
           />
 
-          <b-button type="submit" variant="info">Reset</b-button>
+          <b-button type="submit" variant="info">Resetta</b-button>
           <b-button :to="'/auth/login'" variant="primary" class="text-white"
-            >Login
+            >Accedi
           </b-button>
         </b-form>
       </b-card-text>

@@ -34,8 +34,7 @@ export default {
   },
   /**
    * Otteniamo i vari argomenti disponibili tramite il metodo fetch
-   * Questo permette di scaricare i contenuti solo al primo accesso alla pagina (dev)
-   * o addirittura averli già disponibili (generate)
+   * Questo permette di scaricare i contenuti solo al primo accesso alla pagina
    *
    * Il fetch non rende disponibili i dati che riceve al componente pertanto salviamo il riultato nello store Vuex
    */

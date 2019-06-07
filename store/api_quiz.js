@@ -14,7 +14,7 @@ export const state = () => ({
  * Mutations
  * 
  * L'unico modo per cambiare effettivamente lo stato in un negozio Vuex è commettendo una mutazione.
- * Per richiamare un gestore di mutazione, devi chiamare store.commit
+ * Per richiamare un gestore di mutazione, dobbiamo chiamare store.commit
  * 
  * Esempio di utilizzo:
   methods: {

@@ -22,7 +22,7 @@
     "cross-env": "^5.2.0",
     "emoji-mart-vue": "^2.6.6",
     "js-cookie": "^2.2.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.4.0",
     "sass-loader": "^7.1.0"
   },
